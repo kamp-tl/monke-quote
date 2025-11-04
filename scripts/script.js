@@ -5,8 +5,16 @@ const timerElement = document.getElementById('timer')
 const quoteWall = document.getElementById('quoteWall')
 // var count = document.getElementById('count');
 // var input = document.getElementById('input');
-var counter = 1;
+var counter = 0;
+let hasStarted = false 
 
+quoteInputElement.addEventListener('keydown', (e) => {
+	if (e.code === 'Space' && !hasStarted) {
+e.preventDefault()
+hasStarted=true
+renderNewQuote()
+}
+})
 quoteInputElement.addEventListener('input', () => {
  const arrayQuote = quoteDisplayElement.querySelectorAll('span')
  const arrayInput = quoteInputElement.value.split('')
@@ -39,16 +47,16 @@ if (allCorrect) {
 	quotewallpaper.classList.add('background-text')
 }
 
-if (allCorrect && counter < 6) renderNewQuote()
-if (allCorrect && counter >= 6) hide()
+if (allCorrect && counter < 5) renderNewQuote()
+if (allCorrect && counter >= 5) hide()
 
 })
 
 
-function getRandomQuote() {
-	return fetch(RANDOM_QUOTE_API_URL)
-		.then(response => response.json())
-		.then(data => data.content)
+async function getRandomQuote() {
+	const response = await fetch(RANDOM_QUOTE_API_URL)
+	const data = await response.json()
+	return data.content
 
 }
 
@@ -68,12 +76,14 @@ async function renderNewQuote() {
 }
 
 let startTime
+let timerInterval
 
 function startTimer() {
+	if(timerInterval) clearInterval(timerInterval)
   timerElement.innerText = 0
   startTime = new Date()
-  setInterval(() => {
-    timer.innerText = getTimerTime()
+  timerInterval = setInterval(() => {
+    timerElement.innerText = getTimerTime()
   }, 1000)
 }
 
