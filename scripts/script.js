@@ -1,4 +1,4 @@
-const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random'
+const RANDOM_QUOTE_API_URL = 'https://thequoteshub.com/api/'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
@@ -13,6 +13,7 @@ quoteInputElement.addEventListener('keydown', (e) => {
 e.preventDefault()
 hasStarted=true
 renderNewQuote()
+startTimer();
 }
 })
 quoteInputElement.addEventListener('input', () => {
@@ -52,13 +53,32 @@ if (allCorrect && counter >= 5) hide()
 
 })
 
-
+// function limitLength (quote) {
+// 	if (quote.length > 20) {
+// 		getRandomQuote()
+// 		return
+// 	}
+// }
 async function getRandomQuote() {
+	try {
+		var quote = null
+		let attempts = 0
+		while (quote === null || quote.length > 100){
 	const response = await fetch(RANDOM_QUOTE_API_URL)
-	const data = await response.json()
-	return data.content
+	let data = await response.json()
+	quote=data.text
+	//quote.replace(/'/)
+	console.log(quote)
+	attempts++
+		}
+	} catch(err){
+		console.error('quote fetch error', err);
+    return 'Error fetching quote';
+  }
+  return quote
+	}
+	
 
-}
 
 
 async function renderNewQuote() {
