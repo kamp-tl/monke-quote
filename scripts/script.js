@@ -40,7 +40,7 @@ quoteInputElement.addEventListener('input', () => {
  })
 
 	var displayquote = arrayInput.join('')
-	console.log(displayquote)
+	//console.log("display" + displayquote)
 if (allCorrect) {
 	const quotewallpaper = document.createElement("P")
 	quotewallpaper.textContent = displayquote
@@ -63,12 +63,13 @@ async function getRandomQuote() {
 	try {
 		var quote = null
 		let attempts = 0
-		while (quote === null || quote.length > 100){
+		while ((quote === null || quote.length > 100)|| quote.length < 50){
 	const response = await fetch(RANDOM_QUOTE_API_URL)
 	let data = await response.json()
 	quote=data.text
-	//quote.replace(/'/)
-	console.log(quote)
+	quote=quote.replaceAll("’","'")
+	quote=quote.replaceAll("—","-")
+	//console.log(quote)
 	attempts++
 		}
 	} catch(err){
