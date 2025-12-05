@@ -16,6 +16,8 @@ renderNewQuote()
 startTimer();
 }
 })
+
+
 quoteInputElement.addEventListener('input', () => {
  const arrayQuote = quoteDisplayElement.querySelectorAll('span')
  const arrayInput = quoteInputElement.value.split('')
