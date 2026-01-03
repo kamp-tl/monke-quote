@@ -79,6 +79,7 @@ h2 {
     flex-flow: column wrap;
     border-radius: .5rem;
     padding-left: 20px;
+	margin: 10px;
 }
 
 .background-text {
