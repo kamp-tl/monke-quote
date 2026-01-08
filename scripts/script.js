@@ -14,6 +14,8 @@ e.preventDefault()
 hasStarted=true
 renderNewQuote()
 startTimer();
+} else {
+	e.preventDefault()
 }
 })
 
