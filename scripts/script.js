@@ -73,6 +73,7 @@ async function getRandomQuote() {
 	quote=data.text
 	quote=quote.replaceAll("’","'")
 	quote=quote.replaceAll("—","-")
+	quote=quote.replaceAll('“','"')
 	//console.log(quote)
 	attempts++
 		}
