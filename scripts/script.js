@@ -14,7 +14,7 @@ e.preventDefault()
 hasStarted=true
 renderNewQuote()
 startTimer();
-} else {
+} else if (e.code !== 'Space' && !hasStarted) {
 	e.preventDefault()
 }
 })
