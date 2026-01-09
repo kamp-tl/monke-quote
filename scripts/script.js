@@ -5,10 +5,13 @@ const timerElement = document.getElementById('timer')
 const quoteWall = document.getElementById('quoteWall')
 // var count = document.getElementById('count');
 // var input = document.getElementById('input');
-var counter = 0;
+let counter = 0;
 let hasStarted = false 
 
+
+//event listener on the textarea for keydown
 quoteInputElement.addEventListener('keydown', (e) => {
+	//start game and prevent keypress besides space 
 	if (e.code === 'Space' && !hasStarted) {
 e.preventDefault()
 hasStarted=true
@@ -43,7 +46,7 @@ quoteInputElement.addEventListener('input', () => {
  	}
  })
 
-	var displayquote = arrayInput.join('')
+	let displayquote = arrayInput.join('')
 	//console.log("display" + displayquote)
 if (allCorrect) {
 	const quotewallpaper = document.createElement("P")
@@ -70,6 +73,7 @@ async function getRandomQuote() {
 		while ((quote === null || quote.length > 100)|| quote.length < 50){
 	const response = await fetch(RANDOM_QUOTE_API_URL)
 	let data = await response.json()
+	console.log(data.text)
 	quote=data.text
 	quote=quote.replaceAll("’","'")
 	quote=quote.replaceAll("—","-")
