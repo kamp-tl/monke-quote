@@ -67,30 +67,28 @@ if (allCorrect && counter >= 5) hide()
 // 	}
 // }
 async function getRandomQuote() {
-	try {
+	try {	
 		var quote = null
-		let attempts = 0
+		//refactor to incorporate attempts and error handling 
 		while ((quote === null || quote.length > 100)|| quote.length < 50){
-	const response = await fetch(RANDOM_QUOTE_API_URL)
-	let data = await response.json()
-	console.log(data.text)
-	quote=data.text
-	quote=quote.replaceAll("’","'")
-	quote=quote.replaceAll("—","-")
-	quote=quote.replaceAll('“','"')
-	//console.log(quote)
-	attempts++
+		const response = await fetch(RANDOM_QUOTE_API_URL)
+		let data = await response.json()
+		console.log(data.text)
+		quote=data.text
+		quote=quote.replaceAll("’","'")
+		quote=quote.replaceAll("—","-")
+		quote=quote.replaceAll('“','"')
+		quote=quote.replaceAll('  ',' ')
+		//console.log(quote)
+	
 		}
 	} catch(err){
-		console.error('quote fetch error', err);
+		console.error('quote fetch error: ', err);
     return 'Error fetching quote';
   }
   return quote
 	}
 	
-
-
-
 async function renderNewQuote() {
 	const quote = await getRandomQuote()
 	//const quote = "test"
