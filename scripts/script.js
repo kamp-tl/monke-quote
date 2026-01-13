@@ -3,8 +3,8 @@ const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 const quoteWall = document.getElementById('quoteWall')
-// var count = document.getElementById('count');
-// var input = document.getElementById('input');
+// let count = document.getElementById('count');
+// let input = document.getElementById('input');
 let counter = 0;
 let hasStarted = false 
 
@@ -22,12 +22,12 @@ startTimer();
 }
 })
 
-
+//add an event listener to the textarea to run every input
 quoteInputElement.addEventListener('input', () => {
  const arrayQuote = quoteDisplayElement.querySelectorAll('span')
  const arrayInput = quoteInputElement.value.split('')
-
- let allCorrect = true
+//for every new letter compare each character of both arrays and add appropriate class
+ let allCorrect = true 
  arrayQuote.forEach((characterSpan, index) => {
  	const characterInput = arrayInput[index]
  	if (characterInput == null) {
@@ -45,53 +45,50 @@ quoteInputElement.addEventListener('input', () => {
  		allCorrect = false
  	}
  })
-
+//if the arrays match then add the quote to the wall 
 	let displayquote = arrayInput.join('')
-	//console.log("display" + displayquote)
 if (allCorrect) {
 	const quotewallpaper = document.createElement("P")
 	quotewallpaper.textContent = displayquote
 	quoteWall.appendChild(quotewallpaper)
 	quotewallpaper.classList.add('background-text')
 }
-
+//
 if (allCorrect && counter < 5) renderNewQuote()
 if (allCorrect && counter >= 5) hide()
-
+// if there are less than five quotes, send to the wall, otherwise hide the container 
 })
 
-// function limitLength (quote) {
-// 	if (quote.length > 20) {
-// 		getRandomQuote()
-// 		return
-// 	}
-// }
-async function getRandomQuote() {
-	try {	
-		var quote = null
-		//refactor to incorporate attempts and error handling 
-		while ((quote === null || quote.length > 100)|| quote.length < 50){
-		const response = await fetch(RANDOM_QUOTE_API_URL)
-		let data = await response.json()
-		console.log(data.text)
-		quote=data.text
-		quote=quote.replaceAll("’","'")
-		quote=quote.replaceAll("—","-")
-		quote=quote.replaceAll('“','"')
-		quote=quote.replaceAll('  ',' ')
-		//console.log(quote)
-	
+async function getRandomQuote() {	
+	let quote = null
+	let fetchCounter = 0;
+	try {
+		//keep searching until you find a quote with acceptable length
+		while ((quote === null || quote.length > 100)|| quote.length < 65){
+			const response = await fetch(RANDOM_QUOTE_API_URL)
+			const data = await response.json()
+			console.log(data.text)
+			//change uncommon characters 
+			quote=data.text
+			quote=quote.replaceAll("’","'")
+			quote=quote.replaceAll("—","-")
+			quote=quote.replaceAll('“','"')
+			quote=quote.replaceAll('  ',' ')
+			quote=quote.replaceAll('…','...')
+			fetchCounter++
+		}
+		if (fetchCounter > 50){
+			throw new Error('over 50 fetch attempts')
 		}
 	} catch(err){
 		console.error('quote fetch error: ', err);
-    return 'Error fetching quote';
+    return 'Error Fetching Quote';
   }
   return quote
 	}
-	
+//split quote into array of its characters and create a span for each 	
 async function renderNewQuote() {
 	const quote = await getRandomQuote()
-	//const quote = "test"
 	quoteDisplayElement.innerHTML = ''
 	quote.split('').forEach(character => {
 		const characterSpan = document.createElement('span')
@@ -120,7 +117,7 @@ function getTimerTime() {
 }
 
 function hide() {
-  var x = document.getElementById("box");
+  let x = document.getElementById("box");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
