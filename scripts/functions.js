@@ -8,7 +8,7 @@ let hasStarted = false
 let startTime
 let timerInterval
 
-export async function getRandomQuote() {	//asynch await ✓ 15%
+export async function getRandomQuote() {	//async await ✓ 15%
 	try {
 		let quote = null
 		let fetchCounter = 0;
