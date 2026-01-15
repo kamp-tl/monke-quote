@@ -4,3 +4,4 @@ The game is initiated by pressing Space, and immediately, a quote will be genera
 
 This application is currently deployed to [kamp-tl.github.io/monkeQuote](https://kamp-tl.github.io/monkeQuote)
 
+Currently, I am looking to display user Words per Seconds as part of the displayed wallpaper.
