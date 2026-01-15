@@ -1,17 +1,17 @@
 import {getRandomQuote, renderNewQuote, startTimer, getTimerTime, hide, quoteInputElement, quoteDisplayElement} from './functions.js'
-
+import {counter, hasStarted, startTime,timerInterval} from './variables.js'
 //const RANDOM_QUOTE_API_URL = 'https://api.kanye.rest/'
 //const RANDOM_QUOTE_API_URL = 'https://thequoteshub.com/api/'
 //const quoteDisplayElement = document.getElementById('quoteDisplay')
 //const quoteInputElement = document.getElementById('quoteInput')
 // const timerElement = document.getElementById('timer')
 // const quoteWall = document.getElementById('quoteWall')
-// let count = document.getElementById('count');
+// let count = document.getElementById('count');	
 // let input = document.getElementById('input');
-let counter = 0;
-let hasStarted = false
-let startTime
-let timerInterval
+// let counter = 0;
+// let hasStarted = false
+// let startTime
+// let timerInterval
 //add an event listener to the textarea to run every input
 quoteInputElement.addEventListener('input', (e) => { //user interaction ✓ 15%
 //start game and prevent keypress besides space 
